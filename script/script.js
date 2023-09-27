@@ -5,6 +5,7 @@ const cuadricula = document.querySelector('.parent'); // El contenedor del triqu
 // Variables para el seguimiento de la posición actual
 let filaActual = 0;
 let columnaActual = 0;
+let jugadorActual = 'X';
 actualizarSeleccion(); // Resaltar el cuadro inicial
 
 /// ...
@@ -45,7 +46,14 @@ document.addEventListener('keydown', (event) => {
     actualizarSeleccion(); // Resaltar el cuadro actual
   } else if (key === ' ') {
     // Si se presiona la barra espaciadora, prevenir su comportamiento predeterminado
+    
     event.preventDefault();
+    const casillaActual = casilla[filaActual * 3 + columnaActual];
+    if (!casillaActual.classList.contains('marcado')) {
+      casillaActual.textContent = jugadorActual;
+      casillaActual.classList.add('marcado');
+      jugadorActual = jugadorActual === 'X' ? 'O' : 'X';
+    }
   }
 });
 

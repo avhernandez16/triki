@@ -19,7 +19,7 @@
     .div8 { grid-area: 3 / 2 / 4 / 3; }
     .div9 { grid-area: 3 / 3 / 4 / 4; }
 
-div{
+.paretn div{
     border: 1px solid black;
 } 
 
@@ -29,7 +29,7 @@ button{
 }
 
 .parent button.seleccionado {   
-    background-color: #fb7d49; 
+    background-color: #e7f345; 
     color: #ffffff;        
 }
 
