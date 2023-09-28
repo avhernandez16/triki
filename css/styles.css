@@ -34,7 +34,7 @@ label{
     font-size: 4em;
 }
 
-button{
+.parent button{
     width: 200px;
     height: 200px; 
     font-size: 4em; 
@@ -58,3 +58,12 @@ button{
     color: orange;
 }
 
+#reiniciarBtn {   
+    background-color: #C12F2F; 
+    color: white; 
+    padding: 5px 20px; 
+    font-size: 3em; 
+    border: none;    
+    border-radius: 10px;
+    margin-left: 40%;
+}

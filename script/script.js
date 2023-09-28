@@ -30,7 +30,6 @@ let tablero = [
 ];
 let juegoActivo = true;
 
-// Lógica para verificar si hay un ganador
 function verificarGanador() {
   const lineasGanadoras = [
     // Combinaciones de líneas que representan una victoria
@@ -49,6 +48,8 @@ function verificarGanador() {
     // Resaltar ambos labels en color naranja en caso de empate
     labelJugador1.classList.add('empate');
     labelJugador2.classList.add('empate');
+    alert('¡Empate!');
+    reiniciarJuegoManual();
     return null;
   }
 
@@ -56,30 +57,23 @@ function verificarGanador() {
     const [a, b, c] = linea;
     if (tablero[a[0]][a[1]] && tablero[a[0]][a[1]] === tablero[b[0]][b[1]] && tablero[a[0]][a[1]] === tablero[c[0]][c[1]]) {
 
-      // Resaltar el label del jugador ganador en verde
+      // Resaltar el label del ganador en verde y el perdedor en rojo
       if (tablero[a[0]][a[1]] === 'X') {
         labelJugador1.classList.add('ganador');
+        labelJugador1.classList.remove('perdedor');
+        labelJugador2.classList.add('perdedor');
         labelJugador2.classList.remove('ganador');
       } else {
+        labelJugador1.classList.add('perdedor');
         labelJugador1.classList.remove('ganador');
         labelJugador2.classList.add('ganador');
+        labelJugador2.classList.remove('perdedor');
       }
 
-      // Resaltar el label del jugador ganador en verde y el perdedor en rojo
-      if (tablero[a[0]][a[1]] === 'X') {
-        labelJugador1.classList.add('ganador');
-        labelJugador2.classList.add('perdedor');
-      } else {
-        labelJugador1.classList.add('perdedor');
-        labelJugador2.classList.add('ganador');
-      }
-
+      juegoActivo = false;  // El juego ha terminado
+      alert(`¡El jugador ${tablero[a[0]][a[1]]} ha ganado!`);
       return tablero[a[0]][a[1]];
     }
-  }
-
-  if (tablero.flat().every(cell => cell !== '')) {
-    return 'Empate';
   }
 
   return null;
@@ -88,6 +82,7 @@ function verificarGanador() {
 
 // Agregar un evento de teclado para detectar las flechas y la barra espaciadora
 document.addEventListener('keydown', (event) => {
+  if (!juegoActivo) return;
   const key = event.key;
 
   // Ignorar todas las teclas excepto las flechas
@@ -155,7 +150,10 @@ function actualizarSeleccion() {
 
 }
 
-function reiniciarJuego() {
+const botonReiniciar = document.getElementById('reiniciarBtn');
+botonReiniciar.addEventListener('click', reiniciarJuegoManual);
+
+function reiniciarJuegoManual() {
   // Limpiar el tablero y reiniciar las variables
   tablero = [
     ['', '', ''],
@@ -165,12 +163,17 @@ function reiniciarJuego() {
   jugadorActual = 'X';
   filaActual = 0;
   columnaActual = 0;
+  juegoActivo = true;  // Restablecer el juego a activo
 
   // Limpiar la interfaz gráfica
   casilla.forEach(button => {
     button.textContent = '';
-    button.classList.remove('marcado', 'seleccionado');
+    button.classList.remove('marcado', 'seleccionado', 'ganador');
   });
   casilla[filaActual * 3 + columnaActual].classList.add('seleccionado');
+
+  // Reiniciar los estilos de los labels
+  labelJugador1.classList.remove('ganador', 'perdedor', 'empate');
+  labelJugador2.classList.remove('ganador', 'perdedor', 'empate');
 }
 
