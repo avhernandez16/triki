@@ -1,3 +1,14 @@
+const Jugador1 = prompt("Ingrese el nombre del jugador 1");
+const Jugador2 = prompt("Ingrese el nombre del jugador 2");
+
+// Obtener referencias a elementos HTML
+const labelJugador1 = document.querySelector('.jugadores label:nth-child(1)');
+const labelJugador2 = document.querySelector('.jugadores label:nth-child(2)');
+
+// Asignar los nombres de los jugadores a los elementos <label>
+labelJugador1.textContent = `Jugador 1: ${Jugador1}`;
+labelJugador2.textContent = `Jugador 2: ${Jugador2}`;
+
 // Obtener referencias a elementos HTML
 const casilla = document.querySelectorAll('.parent button'); // Todos los botones del triqui
 const cuadricula = document.querySelector('.parent'); // El contenedor del triqui

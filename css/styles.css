@@ -6,8 +6,8 @@
     grid-row-gap: 0px;
     width: 600px;
     height: 600px;      
-    margin: 250px auto;
-    } 
+    margin: 150px auto;   
+} 
     
     .div1 { grid-area: 1 / 1 / 2 / 2; }
     .div2 { grid-area: 1 / 2 / 2 / 3; }
@@ -23,14 +23,27 @@
     border: 1px solid black;
 } 
 
+.jugadores {
+    display: flex;
+    justify-content: space-around;    
+    margin-top: 80px;
+}
+
+label{
+    font-family: system-ui;
+    font-size: 4em;
+}
+
 button{
     width: 200px;
     height: 200px; 
+    font-size: 4em; 
 }
 
 .parent button.seleccionado {   
-    background-color: #e7f345; 
-    color: #ffffff;        
+    background-color: #2d2324; 
+    color: #ffffff;  
+    font-size: 4em;      
 }
 
 
