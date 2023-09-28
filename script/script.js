@@ -1,14 +1,14 @@
 
-// const Jugador1 = prompt("Ingrese el nombre del jugador 1");
-// const Jugador2 = prompt("Ingrese el nombre del jugador 2");
+const Jugador1 = prompt("Ingrese el nombre del jugador 1");
+const Jugador2 = prompt("Ingrese el nombre del jugador 2");
 
-// // Obtener referencias a elementos HTML
-// const labelJugador1 = document.querySelector('.jugadores label:nth-child(1)');
-// const labelJugador2 = document.querySelector('.jugadores label:nth-child(2)');
+// Obtener referencias a elementos HTML
+const labelJugador1 = document.querySelector('.jugadores label:nth-child(1)');
+const labelJugador2 = document.querySelector('.jugadores label:nth-child(2)');
 
-// // Asignar los nombres de los jugadores a los elementos <label>
-// labelJugador1.textContent = `Jugador 1: ${Jugador1}`;
-// labelJugador2.textContent = `Jugador 2: ${Jugador2}`;
+// Asignar los nombres de los jugadores a los elementos <label>
+labelJugador1.textContent = `Jugador 1: ${Jugador1}`;
+labelJugador2.textContent = `Jugador 2: ${Jugador2}`;
 
 // Obtener referencias a elementos HTML
 const casilla = document.querySelectorAll('.parent button'); // Todos los botones del triqui
@@ -44,9 +44,36 @@ function verificarGanador() {
     [[0, 2], [1, 1], [2, 0]]
   ];
 
+  const empate = tablero.flat().every(cell => cell !== '');
+  if (empate) {
+    // Resaltar ambos labels en color naranja en caso de empate
+    labelJugador1.classList.add('empate');
+    labelJugador2.classList.add('empate');
+    return null;
+  }
+
   for (const linea of lineasGanadoras) {
     const [a, b, c] = linea;
     if (tablero[a[0]][a[1]] && tablero[a[0]][a[1]] === tablero[b[0]][b[1]] && tablero[a[0]][a[1]] === tablero[c[0]][c[1]]) {
+
+      // Resaltar el label del jugador ganador en verde
+      if (tablero[a[0]][a[1]] === 'X') {
+        labelJugador1.classList.add('ganador');
+        labelJugador2.classList.remove('ganador');
+      } else {
+        labelJugador1.classList.remove('ganador');
+        labelJugador2.classList.add('ganador');
+      }
+
+      // Resaltar el label del jugador ganador en verde y el perdedor en rojo
+      if (tablero[a[0]][a[1]] === 'X') {
+        labelJugador1.classList.add('ganador');
+        labelJugador2.classList.add('perdedor');
+      } else {
+        labelJugador1.classList.add('perdedor');
+        labelJugador2.classList.add('ganador');
+      }
+
       return tablero[a[0]][a[1]];
     }
   }
@@ -105,15 +132,13 @@ document.addEventListener('keydown', (event) => {
 
       // Verificar si hay un ganador
       const ganador = verificarGanador();
-      if (ganador) {
-        alert(`¡El jugador ${ganador} ha ganado!`);
+      if (ganador) {        
         reiniciarJuego();
         return;
       }
 
       // Verificar si hay un empate
-      if (tablero.flat().every(cell => cell !== '')) {
-        alert('¡Es un empate!');
+      if (tablero.flat().every(cell => cell !== '')) {        
         reiniciarJuego();
         return;
       }

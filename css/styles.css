@@ -46,4 +46,15 @@ button{
     font-size: 4em;      
 }
 
+.ganador {
+    color: green;
+}
+
+.perdedor {
+    color: red;
+}
+
+.empate {
+    color: orange;
+}
 
